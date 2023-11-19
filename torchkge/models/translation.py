@@ -211,6 +211,8 @@ class TransHModel(TranslationModel):
                                              p=2, dim=1)
         self.norm_vect.weight.data = normalize(self.norm_vect.weight.data,
                                                p=2, dim=1)
+        self.rel_emb.weight.data = self.project(self.rel_emb.weight.data,
+                                                self.norm_vect.weight.data)
 
     def get_embeddings(self):
         """Return the embeddings of entities and relations along with relation
@@ -425,7 +427,7 @@ class TransRModel(TranslationModel):
             candidates = self.rel_emb.weight.data.view(1, self.n_rel, self.rel_emb_dim)
             candidates = candidates.expand(b_size, self.n_rel, self.rel_emb_dim)
 
-        return proj_h, proj_t, candidates, r
+        return proj_h, proj_t, r, candidates
 
     def evaluate_projectionss(self):
         """Link prediction evaluation helper function. Project all entities
@@ -622,7 +624,7 @@ class TransDModel(TranslationModel):
             candidates = self.rel_emb.weight.data.view(1, self.n_rel, self.rel_emb_dim)
             candidates = candidates.expand(b_size, self.n_rel, self.rel_emb_dim)
 
-        return proj_h, proj_t, candidates, r
+        return proj_h, proj_t, r, candidates
 
     def evaluate_projectionss(self):
         """Link prediction evaluation helper function. Project all entities

@@ -1,4 +1,4 @@
-from .data import DataLoader, get_data_home, clear_data_home
+from .data import DataLoader, get_data_home, clear_data_home, safe_extract
 
 from .data_redundancy import count_triplets, duplicates
 from .data_redundancy import cartesian_product_relations
@@ -14,4 +14,5 @@ from .dissimilarities import l1_torus_dissimilarity, l2_torus_dissimilarity, \
 from .losses import MarginLoss, LogisticLoss, BinaryCrossEntropyLoss
 from .modeling import init_embedding, get_true_targets, load_embeddings, filter_scores
 from .operations import get_rank, get_mask, get_bernoulli_probs
+from .pretrained_models import load_pretrained_transe, load_pretrained_rescal, load_pretrained_complex
 from .training import Trainer, TrainDataLoader
